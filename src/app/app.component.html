@@ -1,0 +1,19 @@
+<div class="container  main-page" [ngClass]="currentPomodoroClass" style="padding: 1rem;">
+  <div class="d-flex justify-content-center" >
+    <div [ngClass]="currentPomodoroClass" style="width: 33rem;">
+      <div class="">
+        <app-nav [currentPomodoroClass]="currentPomodoroClass"></app-nav>
+      </div>
+      <br>
+      <div class="d-flex justify-content-center">
+        
+      </div>
+      <br>
+      <div class="d-flex justify-content-center">
+        <app-timer (classEvent)="getPomodoroClass($event)"></app-timer>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<app-description></app-description>
