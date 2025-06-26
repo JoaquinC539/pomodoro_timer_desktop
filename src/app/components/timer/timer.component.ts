@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalTimerComponent } from "./modal-timer/modal-timer.component";
 import { InitService } from '../../services/init.service';
+import { AudioService } from '../../services/audio.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class TimerComponent  implements OnInit,AfterViewInit{
   timerStarted:boolean
   durationForm:FormGroup;
 
-  constructor(private _dbService:DbService,private titleService:Title,private _initService:InitService, 
+  constructor(private _dbService:DbService,private titleService:Title,private _initService:InitService, private audioService:AudioService, 
     @Inject(PLATFORM_ID) private platform_id:Object){
     this.currentPomodoroClass="pomodoro_focus";
     this.currentInternalPomodoroClass="timer_focus"
@@ -90,8 +91,8 @@ export class TimerComponent  implements OnInit,AfterViewInit{
     return (minutes<10?'0'+minutes:minutes)+":"+(secondsLeft<10?'0'+secondsLeft:secondsLeft);
 
   }
-  public startTimer(stop:boolean=false):void{
-    this.playSnap()
+  public async startTimer(stop:boolean=false):Promise<void>{
+    await this.playSnap()
     this.timerStarted=true;
     this.timerInteval=setInterval(()=>{
       this.timerInScreen=this.secondsToTimer(this.timerSeconds);
@@ -103,8 +104,8 @@ export class TimerComponent  implements OnInit,AfterViewInit{
       }
     },1000)
   }
-  public pauseTimer(){
-    this.playSnap()
+  public async pauseTimer(){
+    await this.playSnap()
     this.timerStarted=false;
     clearInterval(this.timerInteval);
     this.titleService.setTitle("Pomodoro Timer")
@@ -202,17 +203,17 @@ export class TimerComponent  implements OnInit,AfterViewInit{
     }
   }
   public playSnap():void{
-    const audio=new Audio('/snap.wav');
-    audio.play();
+    
+    this.audioService.playSound("snap.wav")
+    // const audio=new Audio('/snap.wav');
+    // audio.play();
     
   }
   public playChimes():void{    
-    const audio=new Audio("/chimes.wav");
-    audio.play();
+    this.audioService.playSound("chimes.wav")
   } 
   public playDrum():void{
-    const audio=new Audio("/drum.wav");
-    audio.play();
+    this.audioService.playSound("drum.wav")
   }
   public async refreshTimers($event:Timer[]):Promise<void>{
     this.pauseTimer();

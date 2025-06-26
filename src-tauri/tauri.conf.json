@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Pomodoro Timer",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.jc539.pomodoro.dekstop",
   "build": {
     "frontendDist": "../dist/pomodoro/browser",
     "devUrl": "http://localhost:4200",
@@ -32,6 +32,9 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
+    ],
+    "resources":[
+      "sounds/**/*"
     ]
   }
 }
