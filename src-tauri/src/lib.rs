@@ -1,6 +1,6 @@
 use std::{  path::PathBuf, thread::spawn};
 
-use tauri::{path::{self, BaseDirectory}, Manager};
+use tauri::{path::{ BaseDirectory}, Manager};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -15,8 +15,14 @@ pub fn run() {
       }
       Ok(())
     })
-    .invoke_handler(tauri::generate_handler![my_test_command])
-    .invoke_handler(tauri::generate_handler![play_sound])
+    // .invoke_handler(tauri::generate_handler![my_test_command])
+    // .invoke_handler(tauri::generate_handler![play_sound])
+    // .invoke_handler(tauri::generate_handler![get_os_info])
+    .invoke_handler(tauri::generate_handler![
+      my_test_command,
+      play_sound,
+      get_os_info
+    ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
@@ -24,6 +30,13 @@ pub fn run() {
 fn my_test_command(){
   println!("I was invoked by js");
 }
+
+#[tauri::command]
+fn get_os_info()->String{
+  let os = std::env::consts::OS;
+  os.to_string()
+}
+
 #[tauri::command]
 fn play_sound(handle:tauri::AppHandle,filename: String)-> Result<(), String>{
     // let path = handle.path().resolve(format!("sounds/{}",filename), BaseDirectory::Resource);
