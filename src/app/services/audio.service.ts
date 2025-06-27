@@ -17,7 +17,6 @@ export class AudioService {
   }
   public async playSound(filename:string):Promise<void>{ 
     const os = await this.getOs()
-    console.log(os)
 
     if(await isTauri() && os==="linux"){
       invoke("play_sound",{filename})
