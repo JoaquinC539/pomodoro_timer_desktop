@@ -39,6 +39,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="wwwroot\**" />
+		<None Update="wwwroot\**">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
@@ -57,6 +64,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="EmbedIO" Version="3.5.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
