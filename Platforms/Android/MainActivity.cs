@@ -10,6 +10,10 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        Platforms.Android.CopyAngularToAppData.Copy(Assets);
+        if(Assets != null)
+        {
+            Platforms.Android.CopyAngularToAppData.Copy(Assets);
+        }
+        
     }
 }

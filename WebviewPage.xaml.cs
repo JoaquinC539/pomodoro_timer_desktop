@@ -10,7 +10,6 @@ public partial class WebviewPage : ContentPage
     public WebviewPage()
     {
         InitializeComponent();
-        Console.WriteLine("Hello?");
         // OnLoaded();
         // LoadInitialUrl();
 
@@ -20,15 +19,11 @@ public partial class WebviewPage : ContentPage
     }
     protected override void OnAppearing()
     {
-        Console.WriteLine("Onappear ran");
         var services = Application.Current?.Handler?.MauiContext?.Services;
         if(services != null)
         {
             _server = services?.GetService<LocalWebServer>();
-            
-            Console.WriteLine("Tengo server?: " + _server != null ? _server : "null");
             _server!.StartAsync();
-            Console.WriteLine($"Serving app at: {_server.BaseUrl}");
             webView.Source = new UrlWebViewSource { Url = _server.BaseUrl };
         }
         
@@ -75,7 +70,6 @@ public partial class WebviewPage : ContentPage
         .WithStaticFolder("/", basePath, true);
 
         server.RunAsync();
-        Console.WriteLine("Server started");
         return url;
     }
     private void LoadInitialUrl()
