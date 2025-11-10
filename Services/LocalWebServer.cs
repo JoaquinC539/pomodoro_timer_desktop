@@ -20,7 +20,7 @@ public class LocalWebServer
     {
 
 
-#if ANDROID
+#if ANDROID || IOS
         string rootPath = Path.Combine(FileSystem.AppDataDirectory, "browser");
 #else
         string rootPath = Path.Combine(AppContext.BaseDirectory, "browser");
